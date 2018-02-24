@@ -126,18 +126,12 @@
 <style lang="scss">
     a {
         text-decoration: none;
-        color: #0366d6;
-        &:hover {
-            text-decoration: underline;
-        }
+        color: #2479CC;
     }
     .main {
         a {
             text-decoration: none;
-            color: #0366d6;
-            &:hover {
-                text-decoration: underline;
-            }
+            color: #2479CC;
         }
         blockquote {
             border-left: 4px solid #ccc;

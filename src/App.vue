@@ -28,6 +28,10 @@ html,body {
     display: flex;
     flex-flow: column;
 }
+a {
+    text-decoration: none;
+    color: #2479CC;
+}
 .app-header {
     flex: 0 0 60px;
     height: 60px;

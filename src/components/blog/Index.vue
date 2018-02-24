@@ -40,7 +40,7 @@
                 blogTitle: 'Yuebin的博客',
                 navs: [
                   { title: '归档', link: '/archives' },
-                  { title: '友链', link: '/link' },
+                  { title: '链接', link: '/link' },
                   { title: '关于', link: '/about' },
                 ],
                 _content: {}

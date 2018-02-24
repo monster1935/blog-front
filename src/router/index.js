@@ -6,6 +6,7 @@ import PostList from '@/components/blog/PostList';
 import Post from '@/components/blog/Post';
 import Archives from '@/components/blog/Archives';
 import Link from '@/components/blog/Link';
+import About from '@/components/blog/About';
 import Hello from '@/components/admin/common/Hello'
 import Login from '@/components/admin/Login';
 import Users from '@/components/admin/users';
@@ -42,7 +43,7 @@ export default new Router({
                 {
                     path: '/about',
                     name: 'About',
-                    component: Post,
+                    component: About,
                 },
             ]
         },
