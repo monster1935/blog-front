@@ -11,20 +11,22 @@
             :categories="article.categories"
             :content="article.content">
         </post-block>
-        <div v-if="isLoading">
-            <h1>loading</h1>
+        <div class="loading-wrapper" v-if="isLoading">
+          <i class="iconfont icon-loading"></i>
+        </div>
+        <div class="info-wrapper" v-else>
+          <p>已显示全部数据</p>
         </div>
     </div>
 </template>
 
 <script>
-
     import PostBlock from './PostBlock.vue';
     export default {
         data () {
             return {
                 articles: [],
-                isLoading: false,
+                isLoading: true,
                 curPage: 0,
                 pageSize: 6,
                 isLastPage: false
@@ -83,7 +85,27 @@
     };
 </script>
 
-
-<style lang="scss" scoped>
-
+<style scope>
+  .loading-wrapper,
+  .info-wrapper {
+      margin: 0 auto;
+      text-align: center;
+  }
+  .info-wrapper {
+    color: #999;
+    font-size: 14px;
+  }
+  .loading-wrapper .iconfont.icon-loading {
+      font-size: 30px;
+      display: inline-block;
+      animation: loading-rotate 1s linear infinite;
+  }
+  @keyframes loading-rotate {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
 </style>
