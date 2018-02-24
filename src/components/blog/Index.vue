@@ -1,19 +1,28 @@
 <template>
     <div class="app-blog">
         <div class="blog-header">
-            <a href="/" class="logo">Monster's Blog</a>
+          <div class="header-wrapper">
+            <a href="/" class="logo">{{blogTitle}}</a>
             <ul class="blog-nav">
-                <li><router-link class="nav" to="/">首页</router-link></li>
-                <li><router-link class="nav" to="/archives">归档</router-link></li>
-                <li><router-link class="nav" to="/about">关于</router-link></li>
+                <li v-for="(nav,index) in navs">
+                  <router-link class="nav" :to="nav.link">
+                    {{nav.title}}
+                  </router-link>
+                </li>
             </ul>
+          </div>
         </div>
         <div class="blog-content">
             <div class="main">
                 <router-view></router-view>
             </div>
             <div class="footer">
-                <p>© 2017 -  monster1935的博客  - 京ICP备15048708号-1</p>
+                <p>
+                  © {{currYear}} -  monster1935的博客  -
+                  <a target="_blank" href="http://www.miitbeian.gov.cn/">
+                    京ICP备15048708号-1
+                  </a>
+                </p>
                 <p>Powered by Vue & Koa2</p>
             </div>
         </div>
@@ -28,6 +37,12 @@
         data () {
             return {
                 btnVis: false,
+                blogTitle: 'Yuebin的博客',
+                navs: [
+                  { title: '归档', link: '/archives' },
+                  { title: '友链', link: '/link' },
+                  { title: '关于', link: '/about' },
+                ],
                 _content: {}
             };
         },
@@ -51,7 +66,11 @@
                 this._content.scrollTop = 0;
             }
         },
-        computed: {},
+        computed: {
+          currYear() {
+            return new Date().getFullYear();
+          }
+        },
         watch: {}
     };
 </script>
@@ -65,12 +84,16 @@
         overflow: hidden;
         .blog-header {
             flex: 0 0 60px;
-            width: 1000px;
-            padding: 0 16px;
-            margin: 0 auto;
             height: 60px;
             line-height: 60px;
             overflow: hidden;
+            z-index: 100;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+            .header-wrapper {
+              width: 1000px;
+              padding: 0 16px;
+              margin: 0 auto;
+            }
             .blog-nav {
                 float: right;
                 list-style: none;
@@ -83,7 +106,7 @@
             }
             a.logo {
                 text-decoration: none;
-                font-size: 24px;
+                font-size: 22px;
                 color: #333;
                 &:hover {
                     color: #000;
@@ -91,8 +114,8 @@
             }
             a.nav {
                 text-decoration: none;
-                font-size: 18px;
-                color: #999;
+                font-size: 16px;
+                color: #444;
                 margin: 0 20px;
                 &:hover {
                     color: #333;
@@ -108,7 +131,6 @@
         .blog-content {
             flex: 1;
             overflow: auto;
-            background: #f3f3f3;
             padding: 20px 36px;
             display: flex;
             flex-flow: column;
@@ -123,7 +145,7 @@
                 margin-top: 20px;
                 border-top: 1px solid #ddd;
                 font-size: 14px;
-
+                color: #636465;
             }
         }
         .btn-backtop {
