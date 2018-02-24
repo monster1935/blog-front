@@ -31,7 +31,7 @@
                     </template>
                     <el-table-column
                         label="操作">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="onUserDel(scope.row)">删除</el-button>
                             <el-button type="text" @click="onUserEdit(scope.row)">编辑</el-button>
                         </template>

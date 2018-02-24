@@ -11,6 +11,8 @@ import Hello from '@/components/admin/common/Hello'
 import Login from '@/components/admin/Login';
 import Users from '@/components/admin/users';
 import Articles from '@/components/admin/articles';
+import AboutManage from '@/components/admin/about/index';
+import LinkManage from '@/components/admin/link/index';
 Vue.use(Router)
 
 export default new Router({
@@ -73,6 +75,16 @@ export default new Router({
                     path: 'articles',
                     name: 'Articles',
                     component: Articles,
+                },
+                {
+                    path: 'about',
+                    name: 'AboutManage',
+                    component: AboutManage,
+                },
+                {
+                    path: 'link',
+                    name: 'LinkManage',
+                    component: LinkManage,
                 },
                 /*{
                     path: 'tags',

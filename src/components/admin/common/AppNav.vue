@@ -32,6 +32,8 @@
                     { title: '首页' , route: '/admin', icon: 'iconfont icon-index' },
                     { title: '用户管理' , route: '/admin/users', icon: 'iconfont icon-user' },
                     { title: '文章管理' , route: '/admin/articles', icon: 'iconfont icon-article' },
+                    { title: '关于信息' , route: '/admin/about', icon: 'iconfont icon-about' },
+                    { title: '友链管理' , route: '/admin/link', icon: 'iconfont icon-link' },
                     // { title: '标签管理' , route: '/admin/tags', icon: 'el-icon-menu' },
                     // { title: '分类管理' , route: '/admin/categories', icon: 'el-icon-menu' },
                     // { title: '统计' , route: '/admin/statis', icon: 'el-icon-menu' },
