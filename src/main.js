@@ -26,10 +26,7 @@ axios.interceptors.response.use(response => {
     }
     return response;
 }, err => {
-    this.$message({
-        type: 'error',
-        message: err.message
-    });
+    console.error(err.message);
     return Promise.reject(err);
 });
 Vue.prototype.$http = global.$http = axios;

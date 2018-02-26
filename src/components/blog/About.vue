@@ -3,27 +3,20 @@
 <template>
   <div class="about">
     <div class="title">
-        <p>关于我</p>
+        <p>关于</p>
     </div>
     <div class="about-list">
-      <ul>
-        <li v-for="(nav,index) in aboutList">
-          <a target="_blank" :href="nav.about">{{nav.label}}</a>
-        </li>
-      </ul>
+        <div class="about-wrap" v-html="content" v-highlight></div>
     </div>
   </div>
 </template>
 
 <script>
+  import marked from '@/lib/marked';
   export default {
     data() {
       return {
-        aboutList: [
-          { label: 'SegmentFault', about: 'https://segmentfault.com/' },
-          { label: '掘金', about: 'https://juejin.im/' },
-          { label: '众成翻译', about: 'http://www.zcfy.cc/' },
-        ]
+        content: '',
       };
     },
     mounted() {
@@ -34,7 +27,14 @@
     methods: {
       getAboutInfo() {
         this.$http.post('/v2/aboutInfo').then(res => {
-          console.log(res);
+          if (res.data.resCode === 100) {
+            // store the about info
+            if (res.data.dataList && res.data.dataList.length) {
+              this.content = marked(res.data.dataList[0].content);
+            } else {
+              // todo
+            }
+          }
         }).catch(e => {
           console.log(e);
         });
