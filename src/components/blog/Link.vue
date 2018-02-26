@@ -9,6 +9,7 @@
       <ul>
         <li v-for="(nav,index) in linkList">
           <a target="_blank" :href="nav.link">{{nav.name}}</a>
+          <span class="link-info">({{nav.info}})</span>
         </li>
       </ul>
     </div>
@@ -55,6 +56,11 @@
       a {
         color: #2479CC;
         text-decoration: none;
+      }
+      .link-info {
+        margin-left: 10px;
+        color: #999;
+        font-size: 14px;
       }
     }
   }
