@@ -85,7 +85,10 @@ export default {
 </script>
 
 <style lang="css">
-@import '~simplemde/dist/simplemde.min.css';
-@import '~github-markdown-css';
-@import '~highlight.js/styles/atom-one-dark.css';
+  @import '~simplemde/dist/simplemde.min.css';
+  @import '~github-markdown-css';
+  @import '~highlight.js/styles/atom-one-dark.css';
+  .markdown-editor {
+    font-size: 14px;
+  }
 </style>
