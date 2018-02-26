@@ -30,7 +30,7 @@
           <el-form-item label="网站链接">
             <el-input v-model="linkForm.link"></el-input>
           </el-form-item>
-          <el-form-item label="网站简洁">
+          <el-form-item label="网站简介">
             <el-input type="textarea" :rows="5" v-model="linkForm.info"></el-input>
           </el-form-item>
         </el-form>
@@ -48,6 +48,7 @@ import CommonTable from '@/components/common/CommonTable';
 export default {
   data() {
     return {
+      id: '',
       linkForm: {
         name: '',
         link: '',
@@ -106,7 +107,8 @@ export default {
       this.isEdit = false;
       this.detailVis = true;
     },
-    handleBtnEdit({name, link, info}) {
+    handleBtnEdit({_id, name, link, info}) {
+      this.id = _id;
       this.linkForm.name = name;
       this.linkForm.link = link;
       this.linkForm.info = info;
@@ -117,6 +119,9 @@ export default {
       const params = {
         ...this.linkForm,
       };
+      if (this.isEdit) {
+        params.id = this.id;
+      }
       const url = this.isEdit ? '/v2/editLink' : '/v2/addLink';
       this.$http.post(url, params).then(res => {
         if (res.data.resCode == 100) {

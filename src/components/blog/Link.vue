@@ -8,7 +8,7 @@
     <div class="link-list">
       <ul>
         <li v-for="(nav,index) in linkList">
-          <a target="_blank" :href="nav.link">{{nav.label}}</a>
+          <a target="_blank" :href="nav.link">{{nav.name}}</a>
         </li>
       </ul>
     </div>
@@ -19,13 +19,25 @@
   export default {
     data() {
       return {
-        linkList: [
-          { label: 'SegmentFault', link: 'https://segmentfault.com/' },
-          { label: '掘金', link: 'https://juejin.im/' },
-          { label: '众成翻译', link: 'http://www.zcfy.cc/' },
-        ]
+        linkList: []
       };
     },
+    mounted() {
+      // 获取友链配置信息
+      this.getLinkInfo();
+    },
+    methods: {
+      // 获取友链信息
+      getLinkInfo() {
+        this.$http.post('/v2/links').then(res => {
+          if (res.data.resCode === 100) {
+            this.linkList = res.data.dataList;
+          } else {
+            this.$message.error(res.data.resDesc);
+          }
+        });
+      }
+    }
   }
 </script>
 
