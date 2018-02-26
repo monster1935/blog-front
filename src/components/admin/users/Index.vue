@@ -2,45 +2,26 @@
 <template>
     <div class="user-wrap">
         <h2>用户列表</h2>
-        <div class="user-table border">
-            <div class="btn-table">
-                <el-button icon="plus" @click="addUser">新增</el-button>
-                <el-input
-                    class="user-query"
-                    v-model="username"
-                    icon="search"
-                    @keyup.enter.native="onUserQuery"
-                    placeholder="请输入用户名查询">
-                </el-input>
-            </div>
-            <div class="table-wrap">
-                <el-table
-                    :data="tableData"
-                    border
-                    stripe>
-                    <el-table-column
-                        resizable
-                        type="index"
-                        width="60">
-                    </el-table-column>
-                    <template v-for="column in tableColumn">
-                        <el-table-column
-                            :prop="column.prop"
-                            :label="column.label">
-                        </el-table-column>
-                    </template>
-                    <el-table-column
-                        label="操作">
-                        <template slot-scope="scope">
-                            <el-button type="text" @click="onUserDel(scope.row)">删除</el-button>
-                            <el-button type="text" @click="onUserEdit(scope.row)">编辑</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+        <div class="user-table">
+          <common-table
+            :table-data="tableData"
+            :table-column="tableColumn"
+            :operation-label="operationLabel"
+            :place-holder="placeHolder"
+            :is-paging="true"
+            @btnAdd="handleBtnAdd"
+            @refreshTable="handleRefreshTable"
+          >
+            <el-table-column label="操作" slot="opera">
+              <template slot-scope="scope">
+                <el-button type="text" @click="handleBtnDel(scope.row)">删除</el-button>
+                <el-button type="text" @click="handleBtnEdit(scope.row)">编辑</el-button>
+              </template>
+            </el-table-column>
+          </common-table>
         </div>
         <el-dialog
-            :title="isEdit? '编辑用户' : '新增用户'"
+            :title="isEdit? '编辑' : '新增'"
             :visible.sync="userAddVis"
             size="tiny">
             <user-add
@@ -54,6 +35,7 @@
 </template>
 
 <script>
+    import CommonTable from '@/components/common/CommonTable';
     import UserAdd from './UserAdd';
     export default {
         data () {
@@ -64,15 +46,19 @@
                 userAddVis: false,
                 tableData: [],
                 tableColumn: [
-                    {prop: 'name' , label: '姓名'},
-                    {prop: 'username' , label: '用户名'},
-                    {prop: 'avatar' , label: '备注'},
-                    {prop: 'createTime' , label: '创建时间'}
-                ]
+                    { prop: 'name' , label: '姓名' },
+                    { prop: 'username' , label: '用户名' },
+                    { prop: 'avatar' , label: '备注' },
+                    { prop: 'createTime' , label: '创建时间' },
+                    { slot: 'opera' }
+                ],
+                operationLabel: '新增用户',
+                placeHolder: '请输入用户名',
             };
         },
         components: {
-            UserAdd
+            UserAdd,
+            CommonTable
         },
         methods: {
             // 获取表格数据
@@ -89,7 +75,7 @@
                 });
             },
             // 新增用户
-            addUser () {
+            handleBtnAdd () {
                 this.isEdit = false;
                 this.userAddVis = true;
             },
@@ -97,7 +83,7 @@
                 this.userAddVis = false;
                 this.getTableData();
             },
-            onUserDel (user) {
+            handleBtnDel (user) {
                 this.$confirm('是否删除该用户？','提示',{
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -117,20 +103,15 @@
                 }).catch(()=>{});
             },
             // 用户编辑
-            onUserEdit (user) {
+            handleBtnEdit (user) {
                 this.isEdit = true;
                 this.userAddVis = true;
                 this.userInfo = user;
             },
             // 用户查询
-            onUserQuery () {
-                this.getTableData({username: this.username});
+            handleRefreshTable (params) {
+                this.getTableData({username: params.inputText});
             },
-            // 用户查询重置
-            onQueryReset () {
-                this.$refs['queryForm'].resetFields();
-                this.getTableData();
-            }
         },
         mounted() {
             this.getTableData();

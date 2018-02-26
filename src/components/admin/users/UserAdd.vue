@@ -16,8 +16,8 @@
             </el-form-item>
         </el-form>
         <div class="btn-dialog">
-            <el-button type="primary" @click="onBtnAdd">立即创建</el-button>
-            <el-button @click="onBtnReset">重置</el-button>
+            <el-button @click="handleBtnCancle">取消</el-button>
+            <el-button type="primary" @click="handleBtnOk">确定</el-button>
         </div>
     </div>
 </template>
@@ -47,7 +47,7 @@
                 rules: {
                     name: [
                         { required: true, message: '请输入名称', trigger: 'blur' },
-                        { min: 2, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                        { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
                     ],
                     username: [
                         { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -69,7 +69,7 @@
         },
         methods: {
             // 创建用户
-            onBtnAdd () {
+            handleBtnOk () {
                 let url = this.isEdit ? '/v1/editUser' : '/v1/addUser';
                 let params = {};
                 this.$http.post(url, this.userModel).then (res => {
@@ -85,8 +85,8 @@
                 });
             },
             // 重置
-            onBtnReset () {
-                this.$refs['userForm'].resetFields();
+            handleBtnCancle () {
+                this.$emit('dialogClose');
             }
         },
         computed: {},
